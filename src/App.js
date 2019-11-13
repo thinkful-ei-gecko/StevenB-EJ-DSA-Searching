@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const { inputValue, setInputValue } = useState('');
+
+  const handleLinearSearch = (ev) => {
+    ev.preventDefault();
+  };
+
+  const handleBinarySearch = (ev) => {
+    ev.preventDefault();
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form type='submit'>
+        <label className='search'>Search: </label>
+        <input type='text' className='search'></input>
+        <br />
+        <button onClick={handleLinearSearch}>Linear Search</button>
+        <button onClick={handleBinarySearch}>Binary Search</button>
+      </form>
     </div>
   );
 }
