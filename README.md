@@ -24,7 +24,7 @@ Dewey Decimal index is structured in a sorted numerical sense. I would first sea
 function locateBook(arr, book) {
   let deweyArr = [];
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i] === book.deweyDec)
+    if (arr[i].deweyDec === book.deweyDec)
       deweyArr.push(arr[i]);
   }
   for ( let i = 0; i < book.title.length; i++) {
