@@ -14,3 +14,23 @@ Question #1.2:
 15, 17, 18
 17, 18
 start > end = does not exist
+
+Question #3:
+Dewey Decimal index is structured in a sorted numerical sense. I would first search for the index, then search by alphabetical. 
+
+// find all books with the deweyDec
+// then loop over to find our title
+
+function locateBook(arr, book) {
+  let deweyArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === book.deweyDec)
+      deweyArr.push(arr[i]);
+  }
+  for ( let i = 0; i < book.title.length; i++) {
+    if (deweyArr[i].title === book.title)
+      return i;
+  }
+}
+
+Question #4:
