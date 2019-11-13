@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import {BinarySearchTree as BinaryTree, Node, Tree, Queue, queueHelpers} from './BST'
+const JSON = require('circular-json')
 
 class App extends Component {
   state = {
@@ -42,6 +44,138 @@ class App extends Component {
     ev.preventDefault();
     this.binarySearch();
   }
+
+
+  // Q5 IMPLEMENT TREE TRANSVERSALS 
+  binaryArray = [25,15,50,10,24,35,70,4,12,18,31,44,66,90,22];
+  inOrderBinary = (array) => {
+
+    //Pre Order = (Root, Left, Right)
+
+    // Initiate the tree
+
+    let tree = new BinaryTree()
+
+    // Push values into tree
+    for(let i = 0; i < array.length; i++){
+      tree.insert(array[i])
+    }
+
+    // Put it in order
+
+    return tree.inOrder();
+  }
+
+  preOrderBinary = (array) => {
+
+    //Pre Order = (Root, Left, Right)
+
+    // Initiate the tree
+
+    let tree = new BinaryTree()
+
+    // Push values into tree
+    for(let i = 0; i < array.length; i++){
+      tree.insert(array[i])
+    }
+
+    // Put it in pre order
+
+    return tree.preOrder();
+  }
+
+  postOrderBinary = (array) => {
+
+    //Pre Order = (Root, Left, Right)
+
+    // Initiate the tree
+
+    let tree = new BinaryTree()
+
+    // Push values into tree
+    for(let i = 0; i < array.length; i++){
+      tree.insert(array[i])
+    }
+
+    // Put it in post order
+
+    return tree.postOrder();
+  }
+
+  bfs = (tree, values = []) => {
+    const queue = new Queue(); // Assuming a Queue is implemented (refer to previous lesson on Queue)
+    const node = tree.root;
+    queue.enqueue(node);
+    console.log(queue)
+    while (queue.first) {
+        const node = queue.dequeue(); //remove from the queue
+        values.push(node.data); // add that value from the queue to an array
+
+        if (node.left) {
+            queue.enqueue(node.left); //add left child to the queue
+        }
+
+        if (node.right) {
+            queue.enqueue(node.right); // add right child to the queue
+        }
+
+
+    }
+
+    return values;
+}
+
+
+  main = () => {
+
+    const steven = new Tree()
+
+    const captain = new Node('Captain Picard')
+    steven.root = captain;
+    captain.left = new Node('Commnader Riker')
+    captain.left.left = new Node('Lt. Cmdr. Worf')
+    captain.left.left.left = new Node('Lieutenant security-officer')
+    captain.right = new Node('Commander Data')
+    captain.right.right = new Node('Lt. Cmdr. Crusher')
+    captain.left.right = new Node('Lt. Cmdr. LaForge')
+    captain.right.right.left = new Node('Lieutenant Selar')
+
+    return this.bfs(steven)
+  }
+
+  ballers = [128, 97, 121, 123, 98, 97, 105];
+
+  makeMeRich = (array) => {
+    let buyingDay;
+    let sellingDay;
+
+    // buy at cheapest && sell at the highest
+
+    for (let i = 1; i < array.length; i++){
+      sellingDay = array[i]
+      for (let j = 1; j < array.length; j++){
+        if(sellingDay < array[j]){
+          sellingDay = array[j]
+        }
+      }
+    }
+
+    for (let i = 0; i < array.length - 1; i++){
+      buyingDay = array[i]
+        for(let j = 0; j < array.length - 1; j++){
+          if(buyingDay > array[j]){
+            buyingDay = array[j]
+          }
+        }
+    }
+
+    let dates = `Best buying day is at ${buyingDay} and best selling is ${sellingDay}`
+
+    return dates
+
+  }
+
+
   render() {
     return (
       <div className="App">
@@ -53,6 +187,11 @@ class App extends Component {
           <button onClick={this.handleBinarySearch}>Binary Search</button>
         </form>
         {this.state.resultMessage ? <p>{this.state.resultMessage}</p> : <p>{'Pending...'}</p>}
+        <p>In Order Binary: {this.inOrderBinary(this.binaryArray)}</p>
+        <p>In Pre Binary: {this.preOrderBinary(this.binaryArray)}</p>
+        <p>In Post Binary: {this.postOrderBinary(this.binaryArray)}</p>
+        <p>MARINES: {this.main()}</p>
+        <p>MAKE ME RICH: {this.makeMeRich(this.ballers)}</p>
       </div>
     );
   }
